@@ -23,9 +23,10 @@ frameworks.
 ## License
 
 © 2026 [Daniel Morris]\
-All rights reserved.
+Made available under the terms of the [MIT License].
 
 [daniel morris]: https://unfun.co
 [examples]: ./examples
 [go]: https://go.dev
+[mit license]: ./LICENSE.md
 [slog]: https://pkg.go.dev/log/slog
