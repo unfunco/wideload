@@ -1,0 +1,18 @@
+# General
+.DS_Store
+.idea/
+Thumbs.db
+
+# Go
+*.coverprofile
+*.dll
+*.dylib
+*.exe
+*.exe~
+*.out
+*.so
+*.test
+coverage.*
+go.work
+go.work.sum
+profile.cov
