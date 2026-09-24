@@ -4,21 +4,8 @@ on:
   push:
     branches:
     - main
+  pull_request:
 
 jobs:
   verify:
-    name: Verify
-    runs-on: ubuntu-24.04
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v6
-    - name: Set up Go
-      uses: actions/setup-go@v6
-      with:
-        go-version-file: go.mod
-    - name: Check formatting
-      run: test -z "$(go fmt ./...)"
-    - name: Vet code
-      run: go vet ./...
-    - name: Run unit tests
-      run: go test ./...
+    uses: unfunco/meta/.github/workflows/verify-go.yaml@dc15f9a32fe01b1b7cc44e095ab9e9bdd98bb0b7
