@@ -8,4 +8,4 @@ on:
 
 jobs:
   verify:
-    uses: unfunco/meta/.github/workflows/verify-go.yaml@dc15f9a32fe01b1b7cc44e095ab9e9bdd98bb0b7
+    uses: unfunco/meta/.github/workflows/verify-go.yaml@2cf07936a31dca1b82fe1e447f48e1580c10880e # v0.2.0
