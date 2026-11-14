@@ -4,4 +4,5 @@
 version: 'v0.0.3'
 workflows:
     '.github/workflows/ci.yaml': []
+    '.github/workflows/pr.yaml': []
     '.github/workflows/pr_label.yaml': []

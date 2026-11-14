@@ -1,0 +1,17 @@
+name: PR
+
+on:
+  pull_request:
+    branches:
+    - main
+    paths-ignore:
+    - .editorconfig
+    - .gitattributes
+    - .gitignore
+    - LICENSE.md
+    - README.md
+
+jobs:
+  verify:
+    name: Verify
+    uses: unfunco/meta/.github/workflows/verify-go.yaml@b40ef8e1b220c86892199cb32e2d65d392e74e34 # v0.4.1
