@@ -320,6 +320,7 @@ type buffer struct {
 	start      time.Time
 	fields     []field
 	index      map[string]int
+	captured   int
 	dropped    int
 	count      int
 	errors     int
@@ -336,8 +337,9 @@ func (b *buffer) live() bool {
 }
 
 // set records a under path. A group attribute is flattened into its members
-// under its key, as slog handlers do. limit caps the fields held, zero means
-// no cap and summary marks a field Flush adds.
+// under its key, as slog handlers do. limit caps the new fields that calls
+// with a limit add, so fields added by Set don't use it up. Zero means no
+// cap and summary marks a field Flush adds.
 func (b *buffer) set(path []string, a slog.Attr, limit int) {
 	a.Value = a.Value.Resolve()
 	if a.Equal(slog.Attr{}) {
@@ -359,9 +361,12 @@ func (b *buffer) set(path []string, a slog.Attr, limit int) {
 		}
 		return
 	}
-	if limit > 0 && len(b.fields) >= limit {
-		b.dropped++
-		return
+	if limit > 0 {
+		if b.captured >= limit {
+			b.dropped++
+			return
+		}
+		b.captured++
 	}
 	b.index[id] = len(b.fields)
 	b.fields = append(b.fields, field{path: path, attr: a})
