@@ -4,8 +4,22 @@ on:
   push:
     branches:
     - main
-  pull_request:
+    paths-ignore:
+    - .editorconfig
+    - .gitattributes
+    - .gitignore
+    - LICENSE.md
+    - README.md
 
 jobs:
   verify:
-    uses: unfunco/meta/.github/workflows/verify-go.yaml@8a2e3873c609d86b9a67b353a9111bd44171240d # v0.3.0
+    name: Verify
+    uses: unfunco/meta/.github/workflows/verify-go.yaml@b40ef8e1b220c86892199cb32e2d65d392e74e34 # v0.4.1
+
+  release:
+    name: Release?
+    needs: [ verify ]
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: unfunco/meta/.github/workflows/release-please.yaml@b40ef8e1b220c86892199cb32e2d65d392e74e34 # v0.4.1
