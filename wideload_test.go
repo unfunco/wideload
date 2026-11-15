@@ -303,6 +303,26 @@ func TestMaxFieldsDropsAndCounts(t *testing.T) {
 	}
 }
 
+func TestMaxFieldsIgnoresSetFields(t *testing.T) {
+	var out bytes.Buffer
+	logger, h := newLogger(&out, slog.LevelInfo,
+		&wideload.Options{MaxFields: 2})
+	ctx := wideload.NewContext(context.Background())
+	wideload.Set(ctx, slog.Int("a", 1), slog.Int("b", 2))
+	logger.InfoContext(ctx, "x", "b", 3, "c", 4, "d", 5, "e", 6)
+	_ = h.Flush(ctx)
+	m := decode(t, &out)
+	if m["a"] != 1.0 || m["b"] != 3.0 || m["c"] != 4.0 || m["d"] != 5.0 {
+		t.Errorf("kept fields: %v", m)
+	}
+	if _, ok := m["e"]; ok {
+		t.Errorf("e should have been dropped: %v", m)
+	}
+	if group(t, m, "log")["dropped"] != 1.0 {
+		t.Errorf("dropped count: %v", m["log"])
+	}
+}
+
 func TestKeepMessagesAndCustomMessage(t *testing.T) {
 	var out bytes.Buffer
 	logger, h := newLogger(&out, slog.LevelInfo,
