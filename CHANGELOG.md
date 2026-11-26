@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/unfunco/wideload/compare/v0.1.0...v0.1.1) (2026-11-26)
+
+
+### 🧹 Miscellaneous
+
+* Standardise changelog emoji sections ([#11](https://github.com/unfunco/wideload/issues/11)) ([a353e98](https://github.com/unfunco/wideload/commit/a353e98f055593dcac9454107aaca0aad36f3578))
+
 ## 0.1.0 (2026-11-15)
 
 
